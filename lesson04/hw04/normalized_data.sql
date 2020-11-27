@@ -32,4 +32,54 @@ UPDATE profiles
 
  -- Обновляем статусы
  UPDATE profiles SET status_id = (SELECT id FROM user_statuses ORDER BY RAND() LIMIT 1);
+
+-- Анализируем данные
+SELECT * FROM messages;
+
+UPDATE messages SET updated_at = NOW(); 
+
+-- Обновляем значения ссылок на отправителя и получателя сообщения
+UPDATE messages SET 
+  from_user_id = FLOOR(1 + RAND() * 100),
+  to_user_id = FLOOR(1 + RAND() * 100);
+
+ -- Анализируем данные
+SELECT * FROM media LIMIT 10;
+
+-- Анализируем типы медиаконтента
+SELECT * FROM media_types;
+
+INSERT INTO media_types (name) VALUES
+  ('photo'),
+  ('video'),
+  ('audio');
  
+ -- Обновляем данные для ссылки на тип и владельца
+UPDATE media SET media_type_id = FLOOR(1 + RAND() * 3);
+-- UPDATE media SET user_id = FLOOR(1 + RAND() * 100);
+
+-- Создаём временную таблицу форматов медиафайлов
+CREATE TEMPORARY TABLE extensions (id SERIAL, name VARCHAR(10));
+-- DROP TABLE extensions;
+-- Заполняем значениями
+INSERT INTO extensions (name) VALUES ('jpeg'), ('avi'), ('mpeg'), ('png');
+
+-- Проверяем
+SELECT * FROM extensions;
+
+-- Обновляем ссылку на файл c привязкой к типу медиа
+UPDATE media SET filename = CONCAT(
+  'http://dropbox.net/vk/',
+  filename,
+  '_',
+  (SELECT last_name FROM users WHERE users.id = media.id ),
+  '.',
+  (SELECT name FROM extensions WHERE extensions.id = media.media_type_id )
+);
+
+-- Обновляем размер файлов
+UPDATE media SET size = FLOOR(10000 + (RAND() * 1000000)) WHERE size < 10000;
+
+SELECT * FROM media;
+
+
