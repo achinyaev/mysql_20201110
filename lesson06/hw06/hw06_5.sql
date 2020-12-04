@@ -22,7 +22,6 @@ GROUP BY
 ORDER BY 
 	number_post_mesage_like
 	LIMIT 10;
+
 -- LIMIT 20;
-
-
 -- SELECT NOW()-INTERVAL 7 DAY;
