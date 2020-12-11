@@ -30,7 +30,7 @@ CREATE USER 'shop_read'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL ON shop.* TO 'shop'@'localhost';
 
 -- полномочия на чтение всех обьектов (в задание не сказано на какую базу данных) 
-GRANT SELECT ON *.* TO 'shop_read'@'localhost';
+GRANT SELECT, SHOW VIEW ON *.* TO 'shop_read'@'localhost';
 
 
 /*
