@@ -1,0 +1,63 @@
+#  Практическое задание по теме “NoSQL”
+#  Задача №3. Организуйте хранение категорий и товарных позиций учебной базы данных shop в СУБД MongoDB.
+#
+
+# Установка
+root@uworkstation:~#wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+root@uworkstation:~#echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+root@uworkstation:~#apt-get update
+root@uworkstation:~#sudo apt-get install -y mongodb-org
+root@uworkstation:~#vi /etc/mongod.conf
+root@uworkstation:~#service mongod stop
+root@uworkstation:~#service mongod start
+
+# Запуск клиента
+root@uworkstation:~#mongo
+
+# Подключаемся к базе
+> use shop
+
+# Вставляем записи 
+> db.shop.insert({"id": 1,"name": "Процессоры"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({ "id": 5,"name": "Оперативная память" })
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({ "id": 2,"name": "Материнские платы" })
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({ "id": 3,"name": "Видеокарты"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({ "id": 4,"name": "Жесткие диски" })
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({ "id": 5,"name": "Оперативная память" })
+WriteResult({ "nInserted" : 1 })
+>
+> db.shop.insert({"product": 1, "name": "Intel Core i3-8100", "description": "Процессор для настольных персональных компьютеров, основанных на платформе Intel.", "price": 7890, "catalog_id": 1, "created_at": "2020-12-01 03:21:48", "updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 2,"name": "Intel Core i5-7400","description": "Процессор для настольных персональных компьютеров, основанных на платформе Intel.","price": 12700,"catalog_id": 1,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 3,"name": "AMD FX-8320E","description": "Процессор для настольных персональных компьютеров, основанных на платформе AMD.","price": 4780,"catalog_id": 1,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 4,"name": "AMD FX-8320","description": "Процессор для настольных персональных компьютеров, основанных на платформе AMD.","price": 7120,"catalog_id": 1,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 5,"name": "ASUS ROG MAXIMUS X HERO","description": "Материнская плата ASUS ROG MAXIMUS X HERO, Z370, Socket 1151-V2, DDR4, ATX","price": 19310,"catalog_id": 2,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 6,"name": "Gigabyte H310M S2H","description": "Материнская плата Gigabyte H310M S2H, H310, Socket 1151-V2, DDR4, mATX","price": 4790,"catalog_id": 2,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+> db.shop.insert({"product": 7,"name": "MSI B250M GAMING PRO","description": "Материнская плата MSI B250M GAMING PRO, B250, Socket 1151, DDR4, mATX","price": 5060,"catalog_id": 2,"created_at": "2020-12-01 03:21:48","updated_at": "2020-12-01 03:21:48"})
+WriteResult({ "nInserted" : 1 })
+
+# Результат
+> db.shop.find()
+{ "_id" : ObjectId("5fdbfce8124d0d6f1e9b2822"), "catalog" : 1, "name" : "Процессоры" }
+{ "_id" : ObjectId("5fdbfce8124d0d6f1e9b2823"), "catalog" : 2, "name" : "Материнские платы" }
+{ "_id" : ObjectId("5fdbfce8124d0d6f1e9b2824"), "catalog" : 3, "name" : "Видеокарты" }
+{ "_id" : ObjectId("5fdbfce8124d0d6f1e9b2825"), "catalog" : 4, "name" : "Жесткие диски" }
+{ "_id" : ObjectId("5fdbfce8124d0d6f1e9b2826"), "catalog" : 5, "name" : "Оперативная память" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b282e"), "product" : 1, "name" : "Intel Core i3-8100", "description" : "Процессор для настольных персональных компьютеров, основанных на платформе Intel.", "price" : 7890, "catalog_id" : 1, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b282f"), "product" : 2, "name" : "Intel Core i5-7400", "description" : "Процессор для настольных персональных компьютеров, основанных на платформе Intel.", "price" : 12700, "catalog_id" : 1, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b2830"), "product" : 3, "name" : "AMD FX-8320E", "description" : "Процессор для настольных персональных компьютеров, основанных на платформе AMD.", "price" : 4780, "catalog_id" : 1, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b2831"), "product" : 4, "name" : "AMD FX-8320", "description" : "Процессор для настольных персональных компьютеров, основанных на платформе AMD.", "price" : 7120, "catalog_id" : 1, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b2832"), "product" : 5, "name" : "ASUS ROG MAXIMUS X HERO", "description" : "Материнская плата ASUS ROG MAXIMUS X HERO, Z370, Socket 1151-V2, DDR4, ATX", "price" : 19310, "catalog_id" : 2, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b2833"), "product" : 6, "name" : "Gigabyte H310M S2H", "description" : "Материнская плата Gigabyte H310M S2H, H310, Socket 1151-V2, DDR4, mATX", "price" : 4790, "catalog_id" : 2, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+{ "_id" : ObjectId("5fdbfd7c124d0d6f1e9b2834"), "product" : 7, "name" : "MSI B250M GAMING PRO", "description" : "Материнская плата MSI B250M GAMING PRO, B250, Socket 1151, DDR4, mATX", "price" : 5060, "catalog_id" : 2, "created_at" : "2020-12-01 03:21:48", "updated_at" : "2020-12-01 03:21:48" }
+>
