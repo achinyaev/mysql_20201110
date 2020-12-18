@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS logs (
   message varchar(255) COMMENT 'Сообщение журнала',
   created_at datetime DEFAULT CURRENT_TIMESTAMP) ENGINE=ARCHIVE AUTO_INCREMENT=1 COMMENT 'Журнал операций';
 
+# Создаем триггеры log_users_insert log_catalogs_insert log_products_insert см. отделльные sql файлы
+
  
 # Вставляем запись в таблицу users
 INSERT INTO users(name,birthday_at) VALUES ('Leo','1992-08-15');

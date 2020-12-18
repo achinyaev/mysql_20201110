@@ -8,6 +8,7 @@ root@uworkstation:~#echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/
 root@uworkstation:~#apt-get update
 root@uworkstation:~#sudo apt-get install -y mongodb-org
 root@uworkstation:~#vi /etc/mongod.conf
+bindIp: 0.0.0.0 # Меняем 127.0.0.1 для доступа из вне
 root@uworkstation:~#service mongod stop
 root@uworkstation:~#service mongod start
 
